@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MicroserviceECommerce.MVCUI.Models.CategoriesModel>
+@{
+    ViewBag.Title = "GetProductsByCategory";
+    Layout = null;
+}
+<div class="container">
+    <div class="btn-group btn-group-justified">
+        <a class="btn btn-primary" href="~/Products/GetProducts">All Products</a>
+        @foreach (var item in Model)
+        {
+            <a href="~/Products/GetProductsByCategory/@item.CategoryID" class="btn btn-primary">@item.CategoryName</a>
+        }
+        @if ((string)Session["UserType"]=="Employee")
+        {
+            <a class="btn btn-primary" href="~/Products/ProductsAdd">New Product</a>
+        }
+        
+    </div>
+</div>
+

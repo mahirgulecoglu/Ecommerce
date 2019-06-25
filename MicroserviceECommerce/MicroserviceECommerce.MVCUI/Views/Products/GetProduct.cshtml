@@ -1,0 +1,47 @@
+﻿@model MicroserviceECommerce.MVCUI.Models.ProductsModel
+
+@{
+    ViewBag.Title = "GetProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityPerUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityPerUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discontinued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discontinued)
+        </dd>
+
+    </dl>
+</div>
+<p>
+   
+</p>

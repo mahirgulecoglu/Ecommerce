@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/33973997/how-to-pass-quantity-from-view-to-controller-without-using-ajax-jquery
+
+https://stackoverflow.com/questions/32947643/my-shopping-cart-is-not-working-as-expected-in-asp-net-mvc-5
+
+https://www.google.com/search?q=mvc+.net+cart+session+quantity+update&rlz=1C1GCEU_trTR853TR853&oq=mvc+.net+cart+session+quantity+update&aqs=chrome..69i57.17063j0j4&sourceid=chrome&ie=UTF-8

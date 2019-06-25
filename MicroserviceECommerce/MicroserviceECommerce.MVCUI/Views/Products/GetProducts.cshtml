@@ -1,0 +1,81 @@
+﻿@model IEnumerable<MicroserviceECommerce.MVCUI.Models.ProductsModel>
+
+@{
+    ViewBag.Title = "GetProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>@{Html.RenderAction("GetCategories", "Categories");}   </div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityPerUnit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discontinued)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsInStock)
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discontinued)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitsInStock)
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm" href="~/Products/GetProduct/@item.ProductID">Detail</a>
+            </td>
+            <td>
+                @if (((string)Session["UserType"] == "Customer") && (item.UnitsInStock.Value > 0))
+                {
+
+                    <a class="btn btn-success btn-sm" href="@Url.Action("AddShopCart", "ShopCart", new { id = item.ProductID })">Buy</a>
+
+                }
+                else
+                {
+                    <a class="btn btn-danger btn-sm">Out of Stock</a>
+                }
+            </td>
+            @if ((string)Session["UserType"] == "Employee")
+            {
+                <td>
+                    <a class="btn btn-success btn-sm" href="~/Products/UpdateProduct/@item.ProductID">Update</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="~/Products/DeleteProduct/@item.ProductID">Delete</a>
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>

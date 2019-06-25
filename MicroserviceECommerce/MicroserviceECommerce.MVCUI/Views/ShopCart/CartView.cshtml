@@ -1,0 +1,53 @@
+﻿@using MicroserviceECommerce.MVCUI.Models;
+@{
+    ViewBag.Title = "CartView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>ProductID</th>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+        <th>Remove</th>
+    </tr>
+    @if (Session["Cart"] != null)
+    {
+        foreach (var item in (List<ItemonCartModel>)Session["Cart"])
+        {
+            <tr>
+                <td>@item.Product.ProductID</td>
+                <td>@item.Product.ProductName</td>
+                <td>@item.Product.CategoryID</td>
+                <td>@item.Product.UnitPrice</td>
+                <td>
+                    @using (Html.BeginForm("UpdateShopCart", "ShopCart"))
+                    {
+                        <div class="input-group">
+                            @Html.TextBox("quantity", $"{ item.Quantity}", new { @class = "form-control", type = "number", min = 1, max = item.Product.UnitsInStock, style = "width:70px" })
+                            @Html.Hidden("id",  $"{ item.Product.ProductID}")
+                            <input type="submit" value="Update" class="btn btn-success" />
+                        </div>
+                    }
+                </td>
+                <td>@(item.Product.UnitPrice * item.Quantity)</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("DeleteShopCart", "ShopCart", new { id = item.Product.ProductID })">Remove</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td align="right" colspan="6">Sum</td>
+            <td>
+                @{
+                    List<ItemonCartModel> cart = (List<ItemonCartModel>)Session["cart"];
+                    var Total = cart.Sum(x => x.Product.UnitPrice * x.Quantity);
+                }
+                @Total
+            </td>
+            <td align="right" colspan="6"><a class="btn btn-success btn-sm" href="~/Orders/PutOrders/">Buy</a></td>
+        </tr>
+    }
+</table>

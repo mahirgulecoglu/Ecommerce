@@ -1,0 +1,65 @@
+﻿@using MicroserviceECommerce.MVCUI.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Products", "GetProducts", "Products")</li>
+                    @if (Session["UserType"] == null)
+                    {
+                        <li>@Html.ActionLink("Log IN", "CustomerLogin", "Logins")</li>
+                    }
+                    else if ((string)Session["UserType"] == "Employee")
+                    {
+                        <li>@Html.ActionLink("Customers", "GetCustomers", "Customers")</li>
+                        <li>@Html.ActionLink("Orders", "GetOrders", "Orders")</li>
+                        <li>@Html.ActionLink("Log Out", "LogOut", "Logins")</li>
+                    }
+                    else if ((string)Session["UserType"] == "Customer")
+                    {
+                        <li>@Html.ActionLink("My Orders", "GetCutomerOrder", "Orders")</li>
+                        var cart = (List<ItemonCartModel>)Session["Cart"];
+                        if (cart == null)
+                        {
+                            <li>@Html.ActionLink("Cart(0)", "CartView", "ShopCart")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink($"Cart({ cart.Count.ToString()})", "CartView", "ShopCart")</li>
+                        }
+                        <li>@Html.ActionLink("Log Out", "LogOut", "Logins")</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer></footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
